@@ -54,7 +54,7 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
 
        eQuizButtons[Answers[answerIndex]].disabled = true
 
-       let bIsCorrectTF = questionsArray[indexOfQuestions].choices[id].correct;
+       let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
 
        //let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
        
@@ -78,7 +78,7 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
         eQuizButtons[Answers[answerIndex++]].disabled = false;
         
 
-        if(indexOfQuestions >= questionsArray.length){
+        if(indexOfQuestions > questionsArray.length){
             alert("You are finished, you scored " + TotalScore + " out of 4");
             var EnterName = prompt("Please attach your name to your High Score");
             HiScoreSubmish.push(EnterName + "-" + TotalScore);  
