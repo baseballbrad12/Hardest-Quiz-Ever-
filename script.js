@@ -10,6 +10,8 @@ var indexOfQuestions = 0;
 var TotalScore = 0;
 var answerIndex = 0;
 var Answers=[1,3,3,0];
+var HiScoreSubmish = [];
+var Store = 0;
 
 function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class){
     //$("#QuestionID").show();
@@ -31,9 +33,7 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
 
     $("#HiScores").toggle(false);
 
-    var timeStart = 100;
-
-    var timer = document.getElementsByTagName("h4").innerHTML;
+    
 
     var eInitialQuiz = document.getElementById(InitialQuiz_ID);
 
@@ -45,7 +45,11 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
 
     //GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
 
+    
+
     GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
+    TimeBegins();
+
 
 }
 $(document).ready(function(){
@@ -75,7 +79,6 @@ $(document).ready(function(){
     var eQuestion = document.getElementById("DisplayedQuestion");
     var eChoices = document.getElementById("choices");
     var eQuizButtons = document.getElementsByClassName("QuizOption");
-    var HiScoreSubmish = [];
     var eInitialQuiz = document.getElementById("QuizStart");
 
     $("#nextbutton").click(function(){
@@ -90,12 +93,14 @@ $(document).ready(function(){
         if(indexOfQuestions > questionsArray.length){
             alert("You are finished, you scored " + TotalScore + " out of 4");
             var EnterName = prompt("Please attach your name to your High Score");
-            HiScoreSubmish.push(EnterName + "-" + TotalScore);  
+            var Name = EnterName + "-" + TotalScore
+            HiScoreSubmish.push(Name);
+            localStorage.setItem(Store++,Name)
             $(eInitialQuiz).toggle(true);
             $("#QuestionID").toggle(false);
             $("#HiScores").toggle(true);
             $("#back-btn").toggle(true);
-            alert(HiScoreSubmish + " has been added to High Scores!");
+            alert(Name + " has been added to High Scores!");
             indexOfQuestions = 0;
             TotalScore = 0;
             answerIndex = 0;
@@ -104,8 +109,6 @@ $(document).ready(function(){
    
     
         console.log(HiScoreSubmish)
-        console.log(indexOfQuestions)
-        console.log(answerIndex)
 
     });
 
@@ -119,6 +122,8 @@ function HighscoreLog(){
         $("#QuizStart").toggle(false);
         $("#QuestionID").toggle(false);
         $("#timer").toggle(false);
+        highScoreDisp(HiScoreSubmish);
+        $("#back-btn").show();
     });
 }   
 function goBack(){
@@ -147,17 +152,47 @@ function GoToNextQues(indexOfQuestions, eQuestion, eChoices){
     }
 }
 
-
-function TimeBegins() {
-    var interval = setInterval(function() {
-        timeStart--;
-        timer.textContent = timeStart;
-
-        if(timeStart === 0) {
-            clearInterval(interval);
-        }
-    }, 1000);
+function highScoreDisp(HiScoreSubmish){
+    listRow = document.createElement("div")
+    listOrder = document.createElement("ol")
+    DisplayHi = document.getElementById("HiScoreDisplay").appendChild(listRow);
+    listRow.appendChild(listOrder);
+        for (let i = 0; i < HiScoreSubmish.length; i++) {
+            DisplayHi.innerHTML = HiScoreSubmish[i];
+    };
 }
+/*function highScoreName(Name){
+    Store=0
+    var listOrder = document.createElement("ol")
+    var DisplayName = localStorage.getItem(Store);
+    for (var n = 0; n < DisplayName.length; n++) {
+    $("HiScoreDisplay").appendChild(listRow);
+    listRow.appendChild(listOrder);
+    }
+    var Storage = JSON.parse(localStorage.getItem(Store));
+    if(Storage == null) Storage = [];
+    
+} */
+
+/*function ClearHi(){
+    var CreatedHiScores = document.getElementById("HiScoreDisplay").innerHTML
+    CreatedHiScores.remove();
+}*/
+
+function TimeBegins(timeStart, timer) {
+        var timeStart = 100;
+        var timer = document.getElementsByTagName("h4");
+
+        var interval = setInterval(function() {
+            var seconds = Math.floor((timeStart % (1000 * 60)) / 1000);
+            timeStart--;
+            timer.innerHTML = timeStart;
+    
+            if(timeStart === 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
 
 
 var questionsArray = [

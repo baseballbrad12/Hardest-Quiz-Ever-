@@ -10,12 +10,19 @@
   <script src="script.js"></script>
   <style>
       .container-fluid {
-          margin-top: 150px;
+          margin-top: 100px;
           text-align: center;
       }
       #HiScores {
           margin-top: 50px;
       }
+      h5 {
+          color: green;
+      }
+      h6 {
+          color:red;
+      }
+
   </style>
    
 </head>
@@ -43,22 +50,22 @@
                 </div>
             </div>
             <div id="CorrectAnswer" style="display: none;">
-                <h5>That is correct</h5>
+                <h5>CORRECT</h5>
             </div>
             <div id="WrongAnswer" style="display: none;">
-                    <h5>That was wrong sir!</h5>
+                    <h6>WRONG</h6>
             </div>
             <div id = "timer" style="display: block;">
                 <div class = "container-fluid">
                     <h3>TIMER (in seconds)</h3>
-                    <h4>100</h4>
+                    <h4></h4>
                 </div>
             </div>
             <div id="HiScores">
                 <button id="HiScoreBTN" onclick="HighscoreLog()" style="display: block;" type="button" class="btn btn-primary btn-lg btn-block Scores">HIGH SCORES</button>
             <div id="HiScoreHTML" style="display: none">
-                <h5><strong>High Scores</strong></h5>
-                <h6>None</h6>
+                <h7><strong>High Scores</strong></h7>
+                <div id="HiScoreDisplay"></div>
                 <button id="back-btn" onclick="goBack()" type="button" class="btn-secondary">BACK</button>
                 </div>
             </div>        
