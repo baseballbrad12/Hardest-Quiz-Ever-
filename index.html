@@ -27,14 +27,14 @@
                 <h1><strong>HARDEST QUIZ EVER</strong></h1>
                 <h2>Please click the button below to start the quiz!</h2>
                 <div class="Start/Next">
-                    <button id="START" type="button" class="btn btn-primary" onclick="InitiateQuiz('QuizStart', 'DisplayedQuestion', 'choices', 'QuizOption')">START QUIZ</button>
+                    <button id="START" type="button" class="btn btn-primary" onmouseup="InitiateQuiz('QuizStart', 'DisplayedQuestion', 'choices', 'QuizOption')">START QUIZ</button>
                 </div>
             </div>
             <!--This id will be hidden until the quiz is started-->
             <!-- style="display: none;" -->
             <div id="QuestionID" class="hidden" style="display: none;" >
                 <div id="DisplayedQuestion"></div>
-                <div id="choices" class="col-1">
+                <div id="choices" class="col-1 container-fluid">
                     <button class="btn btn-primary QuizOption" id="0"></button>
                     <button class="btn btn-primary QuizOption" id="1"></button>
                     <button class="btn btn-primary QuizOption" id="2"></button>

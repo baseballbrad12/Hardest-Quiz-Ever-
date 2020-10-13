@@ -9,6 +9,8 @@
 var indexOfQuestions = 0;
 var TotalScore = 0;
 var answerIndex = 0;
+var Answers=[1,3,3,0];
+
 function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class){
     //$("#QuestionID").show();
     //var sTest = Quiz_ID;
@@ -39,35 +41,42 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
 
     var eChoices = document.getElementById(Choices_ID);
 
-    var eQuizButtons = document.getElementsByClassName(QuizOption_Class);
-
-    var HiScoreSubmish = [];
-
-    var Answers=[1,3,3,0];
+    var eQuizButtons = document.getElementsByClassName(QuizOption_Class);    
 
     //GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
 
     GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
 
-   $("." + QuizOption_Class).click(function(){
-       var id = this.id;
-
-       eQuizButtons[Answers[answerIndex]].disabled = true
-
-       let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
-
-       //let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
-       
-       if(bIsCorrectTF == true){
-            $("#CorrectAnswer").show();
-            TotalScore++;
-       }else{
-           $("#WrongAnswer").show();
-       }
-        $("#nextbutton").show();
-    });
+}
+$(document).ready(function(){
+    $(".QuizOption").mouseup(function(){
+        var id = this.id;
+        var eQuizButtons = document.getElementsByClassName("QuizOption");
+ 
+        eQuizButtons[Answers[answerIndex]].disabled = true
+ 
+        let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
+ 
+        //let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
+        
+        if(bIsCorrectTF == true){
+             $("#CorrectAnswer").show();
+             TotalScore++;
+        }else{
+            $("#WrongAnswer").show();
+        }
+         $("#nextbutton").show();
+     });
+})
+   
     
     
+$(document).ready(function(){
+    var eQuestion = document.getElementById("DisplayedQuestion");
+    var eChoices = document.getElementById("choices");
+    var eQuizButtons = document.getElementsByClassName("QuizOption");
+    var HiScoreSubmish = [];
+    var eInitialQuiz = document.getElementById("QuizStart");
 
     $("#nextbutton").click(function(){
         $(this).hide();
@@ -82,7 +91,7 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
             alert("You are finished, you scored " + TotalScore + " out of 4");
             var EnterName = prompt("Please attach your name to your High Score");
             HiScoreSubmish.push(EnterName + "-" + TotalScore);  
-            $("#" + InitialQuiz_ID).toggle(true);
+            $(eInitialQuiz).toggle(true);
             $("#QuestionID").toggle(false);
             $("#HiScores").toggle(true);
             $("#back-btn").toggle(true);
@@ -91,13 +100,15 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
             TotalScore = 0;
             answerIndex = 0;
         }
+})
+   
     
         console.log(HiScoreSubmish)
         console.log(indexOfQuestions)
         console.log(answerIndex)
 
     });
-}
+
 
 
 function HighscoreLog(){
