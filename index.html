@@ -3,14 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-  <title>JavaScript Quiz!</title>
-
+  <title>Hardest Quiz Ever!</title>
+  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="script.js"></script>
   <style>
       .container-fluid {
           margin-top: 150px;
           text-align: center;
+      }
+      #HiScores {
+          margin-top: 50px;
       }
   </style>
    
@@ -19,18 +23,50 @@
 <body>
     <div id = "Quiz-Content">
         <div class = "container-fluid">
-        <h1><strong>JAVASCRIPT QUIZ</strong></h1>
-        <h2>Please click the button below to start the quiz!</h2>
-        <button type="button" class="btn btn-primary" onclick="InitiateQuiz(this)">START QUIZ</button>
+            <div id="QuizStart">
+                <h1><strong>HARDEST QUIZ EVER</strong></h1>
+                <h2>Please click the button below to start the quiz!</h2>
+                <div class="Start/Next">
+                    <button id="START" type="button" class="btn btn-primary" onclick="InitiateQuiz('QuizStart', 'DisplayedQuestion', 'choices', 'QuizOption')">START QUIZ</button>
+                </div>
+            </div>
+            <!--This id will be hidden until the quiz is started-->
+            <!-- style="display: none;" -->
+            <div id="QuestionID" class="hidden" style="display: none;" >
+                <div id="DisplayedQuestion"></div>
+                <div id="choices" class="col-1">
+                    <button class="btn btn-primary QuizOption" id="0"></button>
+                    <button class="btn btn-primary QuizOption" id="1"></button>
+                    <button class="btn btn-primary QuizOption" id="2"></button>
+                    <button class="btn btn-primary QuizOption" id="3"></button>
+                    <button id="nextbutton" class="next-btn btn btn-secondary" style="display: none">Next</button>
+                </div>
+            </div>
+            <div id="CorrectAnswer" style="display: none;">
+                <h5>That is correct</h5>
+            </div>
+            <div id="WrongAnswer" style="display: none;">
+                    <h5>That was wrong sir!</h5>
+            </div>
+            <div id = "timer" style="display: block;">
+                <div class = "container-fluid">
+                    <h3>TIMER (in seconds)</h3>
+                    <h4>100</h4>
+                </div>
+            </div>
+            <div id="HiScores">
+                <button id="HiScoreBTN" onclick="HighscoreLog()" style="display: block;" type="button" class="btn btn-primary btn-lg btn-block Scores">HIGH SCORES</button>
+            <div id="HiScoreHTML" style="display: none">
+                <h5><strong>High Scores</strong></h5>
+                <h6>None</h6>
+                <button id="back-btn" onclick="goBack()" type="button" class="btn-secondary">BACK</button>
+                </div>
+            </div>        
         </div>
     </div>
-    <div id = "timer">
-        <div class = "container-fluid">
-            <h3>TIMER (in seconds)</h3>
-            <h4>100</h4>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+    
+    
 </body>
 
 </html>
