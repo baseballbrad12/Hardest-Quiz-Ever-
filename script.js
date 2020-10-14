@@ -93,7 +93,7 @@ $(document).ready(function(){
         if(indexOfQuestions > questionsArray.length){
             alert("You are finished, you scored " + TotalScore + " out of 4");
             var EnterName = prompt("Please attach your name to your High Score");
-            var Name = EnterName + "-" + TotalScore
+            var Name = TotalScore + "-" + EnterName
             HiScoreSubmish.push(Name);
             localStorage.setItem(Store++,Name)
             $(eInitialQuiz).toggle(true);
@@ -105,16 +105,10 @@ $(document).ready(function(){
             TotalScore = 0;
             answerIndex = 0;
         }
-})
-   
-    
-        console.log(HiScoreSubmish)
+    })
+});
 
-    });
-
-
-
-function HighscoreLog(){
+$(document).ready(function(){
     
     $("#HiScoreBTN").click(function(){
         $(this).hide();
@@ -122,11 +116,11 @@ function HighscoreLog(){
         $("#QuizStart").toggle(false);
         $("#QuestionID").toggle(false);
         $("#timer").toggle(false);
-        highScoreDisp(HiScoreSubmish);
         $("#back-btn").show();
+        highScoreDisp(HiScoreSubmish);
     });
-}   
-function goBack(){
+} )
+$(document).ready(function() {
     $("#back-btn").click(function(){
         $("#back-btn").hide();
         $("#HiScoreBTN").show();
@@ -134,8 +128,10 @@ function goBack(){
         $("#QuizStart").toggle(true);
         $("#QuestionID").toggle(false);
         $("#timer").toggle(true);
+        ClearHi();
     });
-}
+})
+
 function GoToNextQues(indexOfQuestions, eQuestion, eChoices){
     if(indexOfQuestions < questionsArray.length){
         var oQuizObject = questionsArray[indexOfQuestions++];
@@ -153,14 +149,15 @@ function GoToNextQues(indexOfQuestions, eQuestion, eChoices){
 }
 
 function highScoreDisp(HiScoreSubmish){
-    listRow = document.createElement("div")
-    listOrder = document.createElement("ol")
-    DisplayHi = document.getElementById("HiScoreDisplay").appendChild(listRow);
-    listRow.appendChild(listOrder);
+        listRow = document.createElement("div")
+        listOrder = document.createElement("ol")
+        DisplayHi = document.getElementById("HiScoreDisplay").appendChild(listRow);
+        listRow.appendChild(listOrder);
         for (let i = 0; i < HiScoreSubmish.length; i++) {
             DisplayHi.innerHTML = HiScoreSubmish[i];
     };
 }
+    
 /*function highScoreName(Name){
     Store=0
     var listOrder = document.createElement("ol")
@@ -174,10 +171,10 @@ function highScoreDisp(HiScoreSubmish){
     
 } */
 
-/*function ClearHi(){
+function ClearHi(){
     var CreatedHiScores = document.getElementById("HiScoreDisplay").innerHTML
-    CreatedHiScores.remove();
-}*/
+    CreatedHiScores="";
+}
 
 function TimeBegins(timeStart, timer) {
         var timeStart = 100;
