@@ -1,30 +1,16 @@
 
-
-
-
-// . is for class and # is for ID
-//$("#QuestionID").hide();
-//$("#QuestionID").toggle(false);
-
 var indexOfQuestions = 0;
 var TotalScore = 0;
 var answerIndex = 0;
 var Answers=[1,3,3,0];
 var HiScoreSubmish = [];
 var Store = 0;
+var currentNum = initialNum + initialNum++;
+var initialNum = 0;
+var timeStart = 100;
+var timer = document.getElementsByTagName("h4");
 
 function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class){
-    //$("#QuestionID").show();
-    //var sTest = Quiz_ID;
-
-    /*$("#START").addEventListener("click",reset(){
-        indexOfQuestions = 0;
-        TotalScore = 0;
-        answerIndex = 0;
-
-    });
-    */
-    
 
     $("#" + InitialQuiz_ID).toggle(false);
 
@@ -48,10 +34,18 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
     
 
     GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
-    TimeBegins();
 
-
+    $(document).ready(function(){
+        $("#timer-count").textContent = 100;
+        var timer = document.getElementById("timer-count").textContent;
+        var interval = setInterval(function() {
+        timer--;
+        document.getElementById("timer-count").textContent = timer;
+        if(timer<=0) clearInterval(interval);
+        }, 1000);
+    })
 }
+
 $(document).ready(function(){
     $(".QuizOption").mouseup(function(){
         var id = this.id;
@@ -68,6 +62,9 @@ $(document).ready(function(){
              TotalScore++;
         }else{
             $("#WrongAnswer").show();
+            var timer = document.getElementById("timer-count").textContent;
+            var decrement = timer-10;
+            decrement;
         }
          $("#nextbutton").show();
      });
@@ -95,7 +92,6 @@ $(document).ready(function(){
             var EnterName = prompt("Please attach your name to your High Score");
             var Name = TotalScore + "-" + EnterName
             HiScoreSubmish.push(Name);
-            localStorage.setItem(Store++,Name)
             $(eInitialQuiz).toggle(true);
             $("#QuestionID").toggle(false);
             $("#HiScores").toggle(true);
@@ -153,44 +149,15 @@ function highScoreDisp(HiScoreSubmish){
         listOrder = document.createElement("ol")
         DisplayHi = document.getElementById("HiScoreDisplay").appendChild(listRow);
         listRow.appendChild(listOrder);
-        for (let i = 0; i < HiScoreSubmish.length; i++) {
+        for (let i = 0 ; i < HiScoreSubmish.length; i++) {
             DisplayHi.innerHTML = HiScoreSubmish[i];
     };
 }
-    
-/*function highScoreName(Name){
-    Store=0
-    var listOrder = document.createElement("ol")
-    var DisplayName = localStorage.getItem(Store);
-    for (var n = 0; n < DisplayName.length; n++) {
-    $("HiScoreDisplay").appendChild(listRow);
-    listRow.appendChild(listOrder);
-    }
-    var Storage = JSON.parse(localStorage.getItem(Store));
-    if(Storage == null) Storage = [];
-    
-} */
 
 function ClearHi(){
     var CreatedHiScores = document.getElementById("HiScoreDisplay").innerHTML
-    CreatedHiScores="";
+    CreatedHiScores.replace("<div></div>")
 }
-
-function TimeBegins(timeStart, timer) {
-        var timeStart = 100;
-        var timer = document.getElementsByTagName("h4");
-
-        var interval = setInterval(function() {
-            var seconds = Math.floor((timeStart % (1000 * 60)) / 1000);
-            timeStart--;
-            timer.innerHTML = timeStart;
-    
-            if(timeStart === 0) {
-                clearInterval(interval);
-            }
-        }, 1000);
-    }
-
 
 var questionsArray = [
     {

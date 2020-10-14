@@ -6,24 +6,9 @@
   <title>Hardest Quiz Ever!</title>
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="script.js"></script>
-  <style>
-      .container-fluid {
-          margin-top: 100px;
-          text-align: center;
-      }
-      #HiScores {
-          margin-top: 50px;
-      }
-      h5 {
-          color: green;
-      }
-      h6 {
-          color:red;
-      }
-
-  </style>
    
 </head>
 
@@ -37,8 +22,6 @@
                     <button id="START" type="button" class="btn btn-primary" onmouseup="InitiateQuiz('QuizStart', 'DisplayedQuestion', 'choices', 'QuizOption')">START QUIZ</button>
                 </div>
             </div>
-            <!--This id will be hidden until the quiz is started-->
-            <!-- style="display: none;" -->
             <div id="QuestionID" class="hidden" style="display: none;" >
                 <div id="DisplayedQuestion"></div>
                 <div id="choices" class="col-1 container-fluid">
@@ -55,11 +38,9 @@
             <div id="WrongAnswer" style="display: none;">
                     <h6>WRONG</h6>
             </div>
-            <div id = "timer" style="display: block;">
-                <div class = "container-fluid">
-                    <h3>TIMER (in seconds)</h3>
-                    <h4></h4>
-                </div>
+            <div class="container-fluid">
+                <div id = "timer-title" style="display: block;">TIMER</div>
+                <div id = "timer-count" style="display: block;">100</div>
             </div>
             <div id="HiScores">
                 <button id="HiScoreBTN" style="display: block;" type="button" class="btn btn-primary btn-lg btn-block Scores">HIGH SCORES</button>

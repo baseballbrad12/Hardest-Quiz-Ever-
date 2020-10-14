@@ -1,0 +1,13 @@
+.container-fluid {
+    margin-top: 100px;
+    text-align: center;
+}
+#HiScores {
+    margin-top: 50px;
+}
+h5 {
+    color: green;
+}
+h6 {
+    color:red;
+}
