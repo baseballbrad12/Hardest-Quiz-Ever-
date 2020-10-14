@@ -5,21 +5,21 @@ var answerIndex = 0;
 var Answers=[1,3,3,0];
 var HiScoreSubmish = [];
 var Store = 0;
-var currentNum = initialNum + initialNum++;
 var initialNum = 0;
 var timeStart = 100;
 var timer = document.getElementsByTagName("h4");
+
+var HighscoreOrderIndex = [];
+var HighscoreValues = [];
+var HighscoreValuesOriginal = [];
 
 function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class){
 
     $("#" + InitialQuiz_ID).toggle(false);
 
-    //$("#QuestionID").toggle(true);
     $("#QuestionID").toggle(true);
 
     $("#HiScores").toggle(false);
-
-    
 
     var eInitialQuiz = document.getElementById(InitialQuiz_ID);
 
@@ -29,20 +29,16 @@ function InitiateQuiz(InitialQuiz_ID, Question_ID, Choices_ID, QuizOption_Class)
 
     var eQuizButtons = document.getElementsByClassName(QuizOption_Class);    
 
-    //GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
-
-    
-
     GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
 
     $(document).ready(function(){
         $("#timer-count").textContent = 100;
         var timer = document.getElementById("timer-count").textContent;
         var interval = setInterval(function() {
-        timer--;
-        document.getElementById("timer-count").textContent = timer;
-        if(timer<=0) clearInterval(interval);
-        }, 1000);
+                                                timer--;
+                                                document.getElementById("timer-count").textContent = timer;
+                                                if(timer<=0) clearInterval(interval);
+                                            }, 1000);
     })
 }
 
@@ -54,8 +50,6 @@ $(document).ready(function(){
         eQuizButtons[Answers[answerIndex]].disabled = true
  
         let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
- 
-        //let bIsCorrectTF = questionsArray[indexOfQuestions-1].choices[id].correct;
         
         if(bIsCorrectTF == true){
              $("#CorrectAnswer").show();
@@ -63,8 +57,9 @@ $(document).ready(function(){
         }else{
             $("#WrongAnswer").show();
             var timer = document.getElementById("timer-count").textContent;
-            var decrement = timer-10;
-            decrement;
+            timer = timer-10;
+            document.getElementById("timer-count").textContent = timer;
+
         }
          $("#nextbutton").show();
      });
@@ -81,7 +76,6 @@ $(document).ready(function(){
     $("#nextbutton").click(function(){
         $(this).hide();
         GoToNextQues(indexOfQuestions++, eQuestion, eChoices);
-        //GoToNextQues(indexOfQuestions++, eQuestion, eChoices); Worked with other ++ up there^^
         $("#WrongAnswer").hide();
         $("#CorrectAnswer").hide();
         eQuizButtons[Answers[answerIndex++]].disabled = false;
@@ -90,8 +84,11 @@ $(document).ready(function(){
         if(indexOfQuestions > questionsArray.length){
             alert("You are finished, you scored " + TotalScore + " out of 4");
             var EnterName = prompt("Please attach your name to your High Score");
-            var Name = TotalScore + "-" + EnterName
+            var Name = TotalScore + "-" + EnterName;
+            $("#timer-count").textContent = 100;
             HiScoreSubmish.push(Name);
+            HighscoreValues.push(TotalScore);
+            HighscoreValuesOriginal.push(TotalScore);
             $(eInitialQuiz).toggle(true);
             $("#QuestionID").toggle(false);
             $("#HiScores").toggle(true);
@@ -139,24 +136,51 @@ function GoToNextQues(indexOfQuestions, eQuestion, eChoices){
         var arrCurrChoices = oQuizObject.choices;
 
         for(var j = 0; j < arrCurrChoices.length; j++){
-        eChoices.children[j].innerText = arrCurrChoices[j].text;
+            eChoices.children[j].innerText = arrCurrChoices[j].text;
         }
     }
 }
 
 function highScoreDisp(HiScoreSubmish){
-        listRow = document.createElement("div")
-        listOrder = document.createElement("ol")
-        DisplayHi = document.getElementById("HiScoreDisplay").appendChild(listRow);
-        listRow.appendChild(listOrder);
-        for (let i = 0 ; i < HiScoreSubmish.length; i++) {
-            DisplayHi.innerHTML = HiScoreSubmish[i];
-    };
+
+    HighscoreValues.sort(function(a, b){return b-a});
+
+    HighscoreIndex = [];
+
+    for(let k = 0; k < HighscoreValues.length; k++){
+
+        for(let j = 0; j < HighscoreValues.length; j++){
+
+            if(HighscoreValuesOriginal[j] === HighscoreValues[k]){
+                HighscoreIndex.push(j);
+                break;
+
+            }
+
+        }
+
+    }
+
+    
+
+    HiScoreSubmish.sort(function(a, b){return b-a});
+    
+    DisplayHi = document.getElementById("HiScoreDisplay");
+    
+    var sHighScoreHTML = "<div>";
+
+    for (let i = 0 ; i < HiScoreSubmish.length; i++) {
+        sHighScoreHTML = sHighScoreHTML + "<ol>" + (i+1) + ". " + HiScoreSubmish[ HighscoreIndex[i] ] + "</ol>" ;
+    }
+    sHighScoreHTML = sHighScoreHTML + "</div>";
+
+    DisplayHi.innerHTML = sHighScoreHTML;
+
 }
 
 function ClearHi(){
     var CreatedHiScores = document.getElementById("HiScoreDisplay").innerHTML
-    CreatedHiScores.replace("<div></div>")
+    document.getElementById("HiScoreDisplay").innerHTML = "";
 }
 
 var questionsArray = [
