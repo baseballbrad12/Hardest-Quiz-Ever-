@@ -3,5 +3,4 @@ This quiz demonstrates my application of HTML and Javascript through a very simp
 
 Languages: HTML, Javascript
 
-
 https://baseballbrad12.github.io/Hardest-Quiz-Ever-/
